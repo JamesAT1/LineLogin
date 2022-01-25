@@ -1,0 +1,58 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+@inherits IndexBase
+<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+<br />
+<center>
+    @if (CheckLogIn == false)
+    {
+        <div style="height:180px;"></div>
+        <MudCard>
+            <MudCardContent>
+                <MudText Align="Align.Center">
+                    <img src="/Image/Line.png" style="width:80px; height:80px;" />
+                    <br />
+                    <br />
+                    เชื่อมต่อกับไลน์
+                    <br />
+                    <br />
+                    <MudButton Color="Color.Success" Variant="Variant.Filled" OnClick="Login" FullWidth="true">Login</MudButton>
+                    <div style="height:10px;"></div>
+                    <MudButton Color="Color.Default" FullWidth="true">ติดต่อเรา</MudButton>
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    }
+    else
+    {
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudAvatar Color="Color.Warning">@Profile?.DisplayName[0]</MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Align="Align.Left" Typo="Typo.body1">@Profile?.DisplayName</MudText>
+                    <MudText Align="Align.Left" Typo="Typo.body2">@Profile?.StatusMessage</MudText>
+                </CardHeaderContent>
+                <CardHeaderActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Logout" OnClick="@LogOut" Color="Color.Error" />
+                </CardHeaderActions>
+            </MudCardHeader>
+            @if (Profile != null)
+            {
+                <MudCardMedia Image="@Profile.PictureUrl" Height="380" />
+            }
+            <MudCardContent>
+                <br />
+                <MudText Typo="Typo.body2" Align="Align.Left">UserName @TokenId</MudText>
+            </MudCardContent>
+            <MudCardActions Style="@($"color:{Colors.Grey.Lighten5}; background:{Colors.Grey.Lighten3};")">
+                <center>
+                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" OnClick="(e) => { LikeProfile(Like); }" Color="@oColor" />
+                </center>
+            </MudCardActions>
+        </MudCard>
+    }
+
+</center>
+
